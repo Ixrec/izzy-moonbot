@@ -808,4 +808,39 @@ public class ModMiscModule : ModuleBase<SocketCommandContext>
         }
         await ReplyAsync(msg);
     }
+
+    [Command("assignbestpony")]
+    [Summary("Set color and role icon for the Best Pony role before")]
+    [ModCommand(Group = "Permission")]
+    [DevCommand(Group = "Permission")]
+    [Alias("abp")]
+    [Parameter("user", ParameterType.UnambiguousUser, "The user to get information about, or yourself if not provided.", true)]
+    public async Task AssignBestPonyCommandAsync(
+        [Remainder] string user = "")
+    {
+        if (user == "") user = Context.User.Id.ToString(); // Set to user ID to target self.
+
+        var userId = DiscordHelper.ConvertUserPingToId(user);
+        if (userId == 0)
+        {
+            await ReplyAsync("I couldn't find that user's id.");
+            return;
+        }
+
+        var member = Context.Guild.GetUser(userId);
+
+        var output = $"test {member.Id}";
+
+        // bot testing Member role id 973220758736216084
+        var bestPonyRole = Context.Guild.GetRole(973220758736216084);
+        await bestPonyRole.ModifyAsync(roleProperties =>
+        {
+            var rand = new Random();
+            var rc = (uint)rand.Next(0xFFFFFF);
+            _logger.Log($"changing role color to {rc}");
+            roleProperties.Color = new Color(rc);
+        });
+
+        await ReplyAsync(output, allowedMentions: AllowedMentions.None);
+    }
 }
