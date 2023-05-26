@@ -8,6 +8,35 @@ namespace Izzy_Moonbot.Helpers;
 
 public static class ParseHelper
 {
+    /*public static (ulong, string)? TryParseUnambiguousUser(string argsString, out string? errorString)
+    {
+        errorString = null;
+        var args = DiscordHelper.GetArguments(argsString);
+        if (!args.Arguments.Any())
+        {
+            errorString = $"empty or all-whitespace string \"{argsString}\" can't be a datetime";
+            return null;
+        }
+
+        if (!userPing.Contains("<@") || !userPing.Contains(">"))
+        {
+            if (ulong.TryParse(userPing, out var result)) return result;
+            return 0;
+        }
+
+        var frontTrim = userPing[2..];
+
+        // Discord is sometimes weird and gives us a mention like <@ID> or <@!ID> seemingly randomly???
+        if (userPing.Contains("!")) frontTrim = userPing[3..];
+
+        var trim = frontTrim.Split('>', 2)[0];
+        return ulong.Parse(trim);
+    }
+    public static (ulong, string)? TryParseUserResolvable(string argsString, out string? errorString)
+    {
+
+    }*/
+
     public static (ParseDateTimeResult, string)? TryParseDateTime(string argsString, out string? errorString)
     {
         errorString = null;
