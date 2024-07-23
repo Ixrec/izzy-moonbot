@@ -130,7 +130,7 @@ public class MessageListener
         if ((newMessage.CreatedAt.AddHours(24) < DateTimeOffset.UtcNow) && !isMod)
         {
             var oldEditWarning = $":warning: >24-hour-old message edit by <@{author.Id}> ({author.Id}) detected: {newMessage.GetJumpUrl()}";
-            await _modLogger.CreateModLog(defaultGuild).SetContent(oldEditWarning).SetFileLogContent(oldEditWarning).Send();
+            await logChannel.SendMessageAsync(oldEditWarning, allowedMentions: AllowedMentions.None);
         }
 
         var logMessageTemplate =
