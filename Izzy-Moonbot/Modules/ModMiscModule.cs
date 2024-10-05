@@ -123,8 +123,9 @@ public class ModMiscModule : ModuleBase<SocketCommandContext>
             $"The other {result.totalUsersCount - result.updatedUserCount} were up to date.";
         if (result.roleAddedCounts.Count > 0)
             reply += $"\nAdded {string.Join(", ", result.roleAddedCounts.Select(rac => $"{rac.Value} <@&{rac.Key}>(s)"))}";
-        if (result.newMemberRemovalsScheduled.Count > 0)
-            reply += $"\nScheduled <@&{_config.NewMemberRole!.Value}> removal(s) for {string.Join(", ", result.newMemberRemovalsScheduled.Select(u => $"<@{u}>"))}";
+        if (result.newUserRoleUpdatesScheduled.Count > 0)
+            // TODO: change after ZJR
+            reply += $"\nScheduled <@&{_config.NewMemberRole!.Value}> removal(s) for {string.Join(", ", result.newUserRoleUpdatesScheduled.Select(u => $"<@{u}>"))}";
 
         _logger.Log(reply);
         await Context.Message.ReplyAsync(reply, allowedMentions: AllowedMentions.None);
